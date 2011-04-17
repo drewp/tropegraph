@@ -1,5 +1,6 @@
 <html>
   <head>
+    <title>tropeGraph</title>
     <script src="d3x/deps/jquery/jquery-1.5.1.min.js"></script>
     <script src="jquery-ui-1.8.11.darkness/js/jquery-ui-1.8.11.custom.min.js"></script>
     <script src="d3x/deps/d3/d3.min.js"></script>
@@ -51,11 +52,12 @@
     }
     .params {
 	padding-left: 20px;
+	padding-bottom: 5px;
 	background: #aaa;
 	width: 800px;
     }
     .params h3 {
-	margin: 0 0 0 -20px;
+	margin: 22px 0 0 -20px;
 	padding: 0;
 	font-size: 80%;
 	font-weight: normal;
@@ -71,12 +73,50 @@
 	padding: 5px;
 	margin: 0 5px 5px 0;
     }
+    #intro {
+	margin: 6px;
+	padding: 6px;
+	width: 775px;
+    }
+    .ui-slider {
+	background: #8898a4;
+    }
 </style>
   </head>
   <body>
     <h2 class="ui-state-active" >TV Tropes movie similarity grapher</h2>
-    <p>Edges represent the tropes that movies have in common. Similar
-    movies are closer together.</p>
+
+    <div class="ui-widget ui-widget-content ui-corner-all" id="intro">
+      <p>tropeGraph is a project by <a href="http://bigasterisk.com/">Drew Perttula</a> and is not affiliated with
+      <a href="http://tvtropes.org/">TVTropes</a>.</p>
+
+      <p>Edges represent the tropes that movies have in common. Similar
+      movies are closer together.</p>
+      
+      <a class="more" href="#">More...</a>
+      <div style="display: none">
+	<p>Data comes from 
+	<a href="http://tvtropes.org/pmwiki/pmwiki.php/Main/HomePage">tvtropes.org</a>, 
+	which is parsed nightly by the 
+	<a href="http://skipforward.opendfki.de/wiki/DBTropes">DBTropes project</a>. I 
+	picked up that result, loaded it into a local <a href="http://4store.org/">4store</a> database. </p>
+
+	<p>I count all the shared tropes in many movies (but not all of them yet-- 
+	that will need to be done in a more efficient way). 
+	Here's <a href="https://github.com/drewp/tropegraph/blob/master/tropedist.py">the code</a> and <a href="https://github.com/drewp/tropegraph/blob/master/db.py">the SPARQL queries</a>. At first I
+	wrote the output in a way that <a href="http://gephi.org/">gephi</a> could read, but I am not good enough at gephi to do anything more than follow <a href="http://radar.oreilly.com/2010/12/graph-your-twitter-network.html">these instructions</a>.</p>
+
+	<p>The page you're looking at reads the JSON output of the
+	counter program and uses the 
+	<a href="http://mbostock.github.com/d3/">D3 javascript library</a>
+	to help with the drawing. D3 comes with a force layout algorithm
+	(<a href="http://mbostock.github.com/d3/ex/force.html">cool demo</a>), 
+	but I had trouble adapting it to do per-edge lengths,
+	so I adapted the algorithm from 
+	<a href="https://github.com/jackrusher/jssvggraph/blob/master/graph.js">jsvggraph</a> instead. </p>
+      </div>
+
+    </div>
 
     <svg id="plot"></svg>
     <div id="stats">
@@ -122,6 +162,5 @@
 	<span class="slider"></span>
       </div>
     </div>
-
   </body>
 </html>

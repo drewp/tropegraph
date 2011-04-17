@@ -329,5 +329,6 @@ $(function () {
 		    reload(true);
 		}));
 
+    $("#intro .more").click(function () { $(this).find("+ div").toggle() });
     reload();
 });
