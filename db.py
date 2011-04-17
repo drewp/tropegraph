@@ -10,7 +10,7 @@ DBT = Namespace('http://dbtropes.org/ont/')
 MAIN = Namespace('http://dbtropes.org/resource/Main/')
 FILM = Namespace('http://dbtropes.org/resource/Film/')
 
-graph = SyncGraph("sesame", "http://localhost:9991/sparql/",
+graph = SyncGraph("sesame", "http://bang:9080/sparql/",
                   initNs=dict(rdfs=RDFS.RDFSNS, skip=SKIP, dbt=DBT)
                   )
 
