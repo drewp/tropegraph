@@ -181,6 +181,7 @@ $(function () {
 	    
 	    for (var j in nodes) {
 		if (!_.size(nodes[j].edges)) {
+		    // this is (incorrectly) skipping the repulsion force too, but who cares
 		    continue;
 		}
 		if( i !== j ) {
