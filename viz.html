@@ -1,7 +1,7 @@
 <html>
   <head>
     <script src="d3x/deps/jquery/jquery-1.5.1.min.js"></script>
-    <script src="d3x/deps/jquery-ui/js/jquery-ui-1.8.10.custom.min.js"></script>
+    <script src="jquery-ui-1.8.11.darkness/js/jquery-ui-1.8.11.custom.min.js"></script>
     <script src="d3x/deps/d3/d3.min.js"></script>
     <script src="d3x/deps/d3/d3.behavior.min.js"></script>
     <script src="d3x/deps/d3/d3.csv.min.js"></script>
@@ -10,46 +10,118 @@
     <script src="d3x/deps/d3/d3.layout.min.js"></script>
     <script src="d3x/deps/d3/d3.time.min.js"></script>
     <script src="d3x/deps/d3/src/layout/force.js"></script>
+    <script src="d3x/deps/d3/src/core/dispatch.js"></script>
     <script src="underscore-min.js"></script>
     <script src="viz2.js"></script>
-    <link rel="Stylesheet" type="text/css" href="d3x/deps/jquery-ui/css/smoothness/jquery-ui-1.8.10.custom.css" media="all" />
-    <style>
-body {
- font-family: sans;
-}
-svg  { 
-width: 800px;
-height: 500px;
+    <link rel="Stylesheet" type="text/css" href="jquery-ui-1.8.11.darkness/css/ui-darkness/jquery-ui-1.8.11.custom.css" media="all" />
 
-  border: 1px solid gray;
- }
-line { stroke: red }
-text.value {
-  text-anchor: middle;
-  dominant-baseline: middle;
-font-size: 9px;
- fill: #673E3E;
-}
-.node text {
-font-size: 12px;
-}
-.slider {
-width: 300px;
-display: inline-block;
-}
+    <style type="text/css">
+    body {
+	background: #565656;
+	font-family: Verdana,Arial,sans serif;
+    }
+    svg  { 
+	width: 800px;
+	height: 500px;
+	background: #333333;
+	border: 1px solid gray;
+    }
+    line { 
+	stroke: rgba(193, 193, 134, .2);
+    }
+    .node circle {
+	fill: #494a3f;
+	stroke: #716e63;
+	stroke-width: .5px;
+    }
+    text.value {
+	text-anchor: middle;
+	dominant-baseline: middle;
+	font-size: 9px;
+	fill: #9596a0;
+    }
+    .node text {
+	font-size: 12px;
+	fill: #ffdd81;
+    }
+    .slider {
+	width: 600px;
+	display: block;
+	margin: 5px 0;
+    }
+    .params {
+	padding-left: 20px;
+	background: #aaa;
+	width: 800px;
+    }
+    .params h3 {
+	margin: 0 0 0 -20px;
+	padding: 0;
+	font-size: 80%;
+	font-weight: normal;
+	color: white;
+    }
+    .params > div {
+	margin: 6px 0;
+    }
+    #stats {
+	background: #4E4E4E;
+	color: #C1C1C1;
+	width: 790px;
+	padding: 5px;
+	margin: 0 5px 5px 0;
+    }
 </style>
   </head>
   <body>
-    <svg  id="plot"></svg>
-    <div>Max movement: <span id="maxForce"></span></div>
-    <div class="params">
-      <div id="minTropes">Show edges only when movies have at least <span class="val"></span> common tropes: <span class="slider"></span></div>
-      <div id="maxEdge">Max edge length: <span class="val"></span> <span class="slider"></span></div>
-      <div id="numMovies">Use <span class="val"></span> movies (you can't pick which ones yet): <span class="slider"></span></div>
-      <div id="centerPull">Attract nodes to the center: <span class="val"></span> <span class="slider"></span></div>
-      <div id="repulsion">Repel nodes from each other: <span class="val"></span> <span class="slider"></span></div>
-      <div id="stepSize">Time step scaling: <span class="val"></span> <span class="slider"></span></div>
+    <h2 class="ui-state-active" >TV Tropes movie similarity grapher</h2>
+    <p>Edges represent the tropes that movies have in common. Similar
+    movies are closer together.</p>
+
+    <svg id="plot"></svg>
+    <div id="stats">
+      Movement: <span id="maxForce" style="display:inline-block;width:60px"></span>
+      SVG children: <span id="svgChildren"></span>
     </div>
-<div> <a href=".">It got slow. Reload</a></div>
+    <div class="params">
+      <h3 class="ui-widget-header">Data</h3>
+      <div id="numMovies">
+	Use <span class="val"></span> movies (you can't pick which ones yet): 
+	<span class="slider"></span>
+      </div>
+
+      <h3 class="ui-widget-header">Edges</h3>
+      <div id="fracTropes">
+	<input type="radio" name="edgeMode" value="frac" checked="checked"></input>
+	Show edges only when movies share at least <span class="val"></span>% of their tropes: 
+	<span class="slider"></span>
+	</div>
+      <div id="absTropes">
+	<input type="radio" name="edgeMode" value="abs"></input>
+	Show edges only when movies share at least <span class="val"></span> tropes: 
+	<span class="slider"></span>
+      </div>
+      <div id="maxEdge">
+	Edge length range: <span class="val"></span> 
+	<span class="slider"></span>
+      </div>
+
+      <h3 class="ui-widget-header">Physics</h3>
+      <div id="centerPull">
+	Attract nodes to the center: <span class="val"></span>
+	<span class="slider"></span>
+      </div>
+      <div id="repulsion">
+	Repel nodes from each other: <span class="val"></span> 
+	<span class="slider"></span>
+      </div>
+
+      <h3 class="ui-widget-header">Sim</h3>
+      <div id="stepSize">
+	Time step scaling: <span class="val"></span> 
+	<span class="slider"></span>
+      </div>
+    </div>
+
   </body>
 </html>
