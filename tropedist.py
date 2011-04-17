@@ -4,7 +4,7 @@ import logging, gexf, jsonlib, decimal
 from db import MAIN, movieFeatures, movieName, top500
 logging.basicConfig(level=logging.WARN)
 
-movs = sorted(top500()[:20])
+movs = sorted(top500())
 #movs = [MAIN['Titanic'], MAIN['ToyStory'], MAIN['TheTrumanShow'], MAIN['Transformers']]
 
 print "found", len(movs)
