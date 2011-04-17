@@ -1,0 +1,16 @@
+
+dash(pts/40):~/projects-local/tropegraph% 4s-backend-setup tropegraph
+% 4s-backend tropegraph
+
+dash(pts/40):~/projects-local/tropegraph% 4s-import -v tropegraph dbtropes/dbtropes-20110415.nt 
+
+tried http://github.com/wwaites/py4s but its api has slipped
+
+4s-httpd -D -p 9991 -d tropegraph
+
+./describe http://dbtropes.org/resource/Film/TheHobbit
+
+
+
+graphs to make:
+james bond films?
