@@ -300,6 +300,7 @@ $(function () {
     d3.json("out.json", function (json) {
 	$.extend(allJson, json);
 	reload();
+	$("#loading").remove();
     });
 
     var w = 800, h = 500;
