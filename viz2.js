@@ -130,7 +130,7 @@ $(function () {
 	maxEdge: {value: 300, min: 5, max: 1000, reload: true},
 	numMovies: { value: 15, min: 2, max: 262, reload: true},
 	centerPull: { value: 20, min: 0, max: 200, reload: false},
-	repulsion: { value: 50000, min: 0, max: 100000, reload: false},
+	repulsion: { value: 50000, min: 0, max: 1000000, reload: false},
 	stepSize: { value: .0003, min: .0001, max: .001, step: .00001, reload: false}
     };
 
