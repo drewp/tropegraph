@@ -164,6 +164,8 @@ $(function () {
 	// and from d3 force.js
 	var nodes = selectedData.nodes;
 
+	var forcex = {}, forcey = {};
+
 	    // todo: if this is running slow, it should start working
 	    // on only chunks of the nodes at a time, so the ui event
 	    // loop gets more of a chance. Or use web workers.
@@ -209,6 +211,11 @@ $(function () {
 		}
 	    }
 	}
+
+	// there's a bug where this sometimes sticks at the highest
+	// number you've ever used, even after you remove most of the
+	// nodes
+	$("#nodeCount").text(i+1);
 
 	var maxMove = 0;
 	for (i in nodes) {
@@ -294,7 +301,7 @@ $(function () {
 	reload();
     });
 
-    var w = 600, h = 600;
+    var w = 800, h = 500;
 
     var params = {
 	fracTropes: {value: 3, min: 0, max:100, step: .1, reload: true},
@@ -312,7 +319,6 @@ $(function () {
     var vis = d3.select("#plot").attr("width", w).attr("height", h);
     
     var event = d3.dispatch("tick");
-    var forcex = {}, forcey = {};
 
     var currentStep = params.stepSize.value;
     $(window).bind("resumeTick", resumeTick);
